@@ -140,7 +140,7 @@ let p1 = sprites.create(img`
     . f f f f f f f . . . f f f . . 
     `, SpriteKind.Player)
 controller.moveSprite(p1, 100, 100)
-tiles.placeOnTile(p1, tiles.getTileLocation(8, 10))
+tiles.placeOnTile(p1, tiles.getTileLocation(6, 9))
 p1.setStayInScreen(true)
 let p2 = sprites.create(img`
     . . . . f f f f f . . . . . . . 
@@ -161,7 +161,7 @@ let p2 = sprites.create(img`
     . . . . f f f f f f f f f . . . 
     `, SpriteKind.Player)
 controller.moveSprite(p2, 100, 100)
-tiles.placeOnTile(p1, tiles.getTileLocation(6, 10))
+tiles.placeOnTile(p1, tiles.getTileLocation(8, 9))
 p1.setStayInScreen(true)
 let CAMERA = sprites.create(img`
     . . . . . . . . . . . . . . . . 
