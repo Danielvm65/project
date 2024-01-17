@@ -143,6 +143,27 @@ controller.moveSprite(p1, 100, 100)
 tiles.placeOnTile(p1, tiles.getTileLocation(8, 10))
 p1.setStayInScreen(true)
 let p2 = sprites.create(img`
+    . . . . f f f f f . . . . . . . 
+    . . . f 4 4 4 4 4 f . . . . . . 
+    . . f d d d d 4 4 4 f . . . . . 
+    . c d f d d f d 4 4 f f . . . . 
+    . c d f d d f d 4 4 d d f . . . 
+    c d e e d d d d 4 4 b d c . . . 
+    c d d d d c d d 4 4 b d c . f f 
+    c c c c c d d d 4 4 f c . f 4 f 
+    . f d d d d d 4 4 f f . . f 4 f 
+    . . f f f f f 4 4 4 4 f . f 4 f 
+    . . . . f 4 4 4 4 4 4 4 f f 4 f 
+    . . . f 4 f f 4 f 4 4 4 4 f f . 
+    . . . f 4 f f 4 f 4 4 4 4 f . . 
+    . . . f d b f d b f f 4 f . . . 
+    . . . f d d c d d b b d f . . . 
+    . . . . f f f f f f f f f . . . 
+    `, SpriteKind.Player)
+controller.moveSprite(p2, 100, 100)
+tiles.placeOnTile(p1, tiles.getTileLocation(6, 10))
+p1.setStayInScreen(true)
+let CAMERA = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -160,21 +181,4 @@ let p2 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-let p3 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Player)
+scene.cameraFollowSprite(CAMERA)
