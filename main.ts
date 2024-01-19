@@ -160,8 +160,8 @@ let p2 = sprites.create(img`
     . . . f d d c d d b b d f . . . 
     . . . . f f f f f f f f f . . . 
     `, SpriteKind.Player)
-controller.moveSprite(p2, 100, 100)
-tiles.placeOnTile(p1, tiles.getTileLocation(8, 9))
+controller.player2.moveSprite(p2, 100, 100)
+tiles.placeOnTile(p2, tiles.getTileLocation(8, 9))
 p1.setStayInScreen(true)
 let CAMERA = sprites.create(img`
     . . . . . . . . . . . . . . . . 
