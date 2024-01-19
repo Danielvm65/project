@@ -1,3 +1,19 @@
+controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (jump_p2 < 2) {
+        jump_p2 += 1
+        p2.vy = -150
+    }
+})
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    if (jump1 < 2) {
+        jump1 += 1
+        p1.vy = -150
+    }
+})
+let jump_p2 = 0
+let jump1 = 0
+let p2: Sprite = null
+let p1: Sprite = null
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -121,7 +137,7 @@ scene.setBackgroundImage(img`
     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
     `)
 tiles.setCurrentTilemap(tilemap`level1`)
-let p1 = sprites.create(img`
+p1 = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
     . . f d d d d e e e f f . . . . 
@@ -142,7 +158,7 @@ let p1 = sprites.create(img`
 controller.moveSprite(p1, 100, 100)
 tiles.placeOnTile(p1, tiles.getTileLocation(6, 9))
 p1.setStayInScreen(true)
-let p2 = sprites.create(img`
+p2 = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f 4 4 4 4 4 f . . . . . . 
     . . f d d d d 4 4 4 f . . . . . 
@@ -182,6 +198,10 @@ let CAMERA = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 scene.cameraFollowSprite(CAMERA)
+p1.ay = 300
+p2.ay = 300
+jump1 = 0
+jump_p2 = 0
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
