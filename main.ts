@@ -1,23 +1,17 @@
-controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    if (jump_p2 < 1) {
+controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (jump_p2 < 2) {
         jump_p2 += 1
         p2.vy = -150
     }
-    if (p2.isHittingTile(CollisionDirection.Bottom)) {
-        jump_p2 = 0
-    }
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    if (jump1 < 1) {
+    if (jump1 < 2) {
         jump1 += 1
         p1.vy = -150
     }
-    if (p1.isHittingTile(CollisionDirection.Bottom)) {
-        jump1 = 0
-    }
 })
-let jump1 = 0
 let jump_p2 = 0
+let jump1 = 0
 let p2: Sprite = null
 let p1: Sprite = null
 scene.setBackgroundImage(img`
@@ -206,6 +200,8 @@ let CAMERA = sprites.create(img`
 scene.cameraFollowSprite(CAMERA)
 p1.ay = 300
 p2.ay = 300
+jump1 = 0
+jump_p2 = 0
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
