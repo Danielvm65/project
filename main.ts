@@ -16,7 +16,7 @@ controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         jump_p2 = 0
     }
 })
-function Spawn_zombies () {
+function doSomething (mySprite: Sprite) {
     for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         Enemy1 = sprites.create(img`
             . . . . . f f f f f . . . 
@@ -167,7 +167,7 @@ scene.setBackgroundImage(img`
     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
     `)
-tiles.setCurrentTilemap(tilemap`level1`)
+tiles.setCurrentTilemap(tilemap`level2`)
 p1 = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
@@ -231,7 +231,6 @@ let CAMERA = sprites.create(img`
 scene.cameraFollowSprite(CAMERA)
 p1.ay = 300
 p2.ay = 300
-Spawn_zombies()
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
