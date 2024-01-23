@@ -16,6 +16,31 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         jump1 = 0
     }
 })
+function Spawn_zombies () {
+    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+        Enemy1 = sprites.create(img`
+            . . . . . f f f f f . . . 
+            . . . f f f f f f f f f . 
+            . . f f f c f f f f f f . 
+            . . f f c f f f c f f f f 
+            f f c c f f f c c f f c f 
+            f f f f f 6 f f f f c c f 
+            . f f f 6 6 f f f f f f f 
+            . . f f 6 6 f b f 6 6 f f 
+            . . . f 7 7 f 1 6 7 6 f . 
+            . . . f 7 7 7 7 6 f f f . 
+            . . . f f 6 6 6 6 6 f . . 
+            . . . f a a a 6 7 7 6 . . 
+            . . . f a a a 6 7 7 6 . . 
+            . . . f 6 6 6 f 6 6 f . . 
+            . . . . f f f f f f . . . 
+            . . . . . . f f f . . . . 
+            `, SpriteKind.Enemy)
+        tiles.placeOnTile(Enemy1, value)
+        tiles.setTileAt(value, sprites.dungeon.floorLightMoss)
+    }
+}
+let Enemy1: Sprite = null
 let jump1 = 0
 let jump_p2 = 0
 let p2: Sprite = null
@@ -206,6 +231,7 @@ let CAMERA = sprites.create(img`
 scene.cameraFollowSprite(CAMERA)
 p1.ay = 300
 p2.ay = 300
+Spawn_zombies()
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
