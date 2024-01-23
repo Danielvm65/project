@@ -1,19 +1,19 @@
-controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    if (jump_p2 < 1) {
-        jump_p2 += 1
-        p2.vy = -150
-    }
-    if (p2.isHittingTile(CollisionDirection.Bottom)) {
-        jump_p2 = 0
-    }
-})
-controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (jump1 < 1) {
         jump1 += 1
         p1.vy = -150
     }
     if (p1.isHittingTile(CollisionDirection.Bottom)) {
         jump1 = 0
+    }
+})
+controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
+    if (jump_p2 < 1) {
+        jump_p2 += 1
+        p2.vy = -150
+    }
+    if (p2.isHittingTile(CollisionDirection.Bottom)) {
+        jump_p2 = 0
     }
 })
 function Spawn_zombies () {
@@ -41,8 +41,8 @@ function Spawn_zombies () {
     }
 }
 let Enemy1: Sprite = null
-let jump1 = 0
 let jump_p2 = 0
+let jump1 = 0
 let p2: Sprite = null
 let p1: Sprite = null
 scene.setBackgroundImage(img`
