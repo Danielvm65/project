@@ -40,6 +40,10 @@ function doSomething (mySprite: Sprite) {
         tiles.setTileAt(value, sprites.dungeon.floorLightMoss)
     }
 }
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    sprites.destroy(p1)
+    info.player2.changeLifeBy(-1)
+})
 let Enemy1: Sprite = null
 let jump_p2 = 0
 let jump1 = 0
