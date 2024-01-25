@@ -7,16 +7,7 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         jump1 = 0
     }
 })
-controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
-    if (jump_p2 < 1) {
-        jump_p2 += 1
-        p2.vy = -150
-    }
-    if (p2.isHittingTile(CollisionDirection.Bottom)) {
-        jump_p2 = 0
-    }
-})
-function doSomething (mySprite: Sprite) {
+function pathenemies (mySprite: Sprite) {
     for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         Enemy1 = sprites.create(img`
             . . . . . f f f f f . . . 
@@ -38,15 +29,25 @@ function doSomething (mySprite: Sprite) {
             `, SpriteKind.Enemy)
         tiles.placeOnTile(Enemy1, value)
         tiles.setTileAt(value, sprites.dungeon.floorLightMoss)
+        scene.followPath(Enemy1, scene.aStar(tiles.getTileLocation(0, 0), tiles.getTileLocation(0, 0)))
     }
 }
+controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
+    if (jump_p2 < 1) {
+        jump_p2 += 1
+        p2.vy = -150
+    }
+    if (p2.isHittingTile(CollisionDirection.Bottom)) {
+        jump_p2 = 0
+    }
+})
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
     sprites.destroy(p1)
     info.player2.changeLifeBy(-1)
 })
-let Enemy1: Sprite = null
 let jump_p2 = 0
 let jump1 = 0
+let Enemy1: Sprite = null
 let p2: Sprite = null
 let p1: Sprite = null
 scene.setBackgroundImage(img`
@@ -235,6 +236,33 @@ let CAMERA = sprites.create(img`
 scene.cameraFollowSprite(CAMERA)
 p1.ay = 300
 p2.ay = 300
+Enemy1 = sprites.create(img`
+    . . . . . f f f f f . . . 
+    . . . f f f f f f f f f . 
+    . . f f f c f f f f f f . 
+    . . f f c f f f c f f f f 
+    f f c c f f f c c f f c f 
+    f f f f f 6 f f f f c c f 
+    . f f f 6 6 f f f f f f f 
+    . . f f 6 6 f b f 6 6 f f 
+    . . . f 7 7 f 1 6 7 6 f . 
+    . . . f 7 7 7 7 6 f f f . 
+    . . . f f 6 6 6 6 6 f . . 
+    . . . f a a a 6 7 7 6 . . 
+    . . . f a a a 6 7 7 6 . . 
+    . . . f 6 6 6 f 6 6 f . . 
+    . . . . f f f f f f . . . 
+    . . . . . . f f f . . . . 
+    `, SpriteKind.Enemy)
+tiles.placeOnTile(Enemy1, tiles.getTileLocation(3, 1))
+Enemy1.vx = 50
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
+    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+        if (value.vx < 0 && (value.isHittingTile(CollisionDirection.Left) || tiles.tileAtLocationEquals(tiles.getTileLocation(value.tilemapLocation().column - 0, value.tilemapLocation().row + 1), assets.tile`transparency16`))) {
+            value.vx = value.vx * -1
+        } else if (value.vx > 0 && tiles.tileAtLocationEquals(tiles.getTileLocation(value.tilemapLocation().column + 0, value.tilemapLocation().row + 1), assets.tile`transparency16`)) {
+            value.vx = value.vx * -1
+        }
+    }
 })

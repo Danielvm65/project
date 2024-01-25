@@ -4,7 +4,9 @@
     "dependencies": {
         "device": "*",
         "multiplayer": "*",
-        "controller": "*"
+        "controller": "*",
+        "edge-connector": "*",
+        "arcade-tilemap-a-star": "github:jwunderl/arcade-tilemap-a-star#v0.4.0"
     },
     "files": [
         "main.blocks",
