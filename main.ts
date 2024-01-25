@@ -27,9 +27,9 @@ function pathenemies (mySprite: Sprite) {
             . . . . f f f f f f . . . 
             . . . . . . f f f . . . . 
             `, SpriteKind.Enemy)
+        Enemy1.vx = 50
         tiles.placeOnTile(Enemy1, value)
-        tiles.setTileAt(value, sprites.dungeon.floorLightMoss)
-        scene.followPath(Enemy1, scene.aStar(tiles.getTileLocation(0, 0), tiles.getTileLocation(0, 0)))
+        tiles.setTileAt(value, assets.tile`transparency16`)
     }
 }
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
@@ -236,26 +236,7 @@ let CAMERA = sprites.create(img`
 scene.cameraFollowSprite(CAMERA)
 p1.ay = 300
 p2.ay = 300
-Enemy1 = sprites.create(img`
-    . . . . . f f f f f . . . 
-    . . . f f f f f f f f f . 
-    . . f f f c f f f f f f . 
-    . . f f c f f f c f f f f 
-    f f c c f f f c c f f c f 
-    f f f f f 6 f f f f c c f 
-    . f f f 6 6 f f f f f f f 
-    . . f f 6 6 f b f 6 6 f f 
-    . . . f 7 7 f 1 6 7 6 f . 
-    . . . f 7 7 7 7 6 f f f . 
-    . . . f f 6 6 6 6 6 f . . 
-    . . . f a a a 6 7 7 6 . . 
-    . . . f a a a 6 7 7 6 . . 
-    . . . f 6 6 6 f 6 6 f . . 
-    . . . . f f f f f f . . . 
-    . . . . . . f f f . . . . 
-    `, SpriteKind.Enemy)
-tiles.placeOnTile(Enemy1, tiles.getTileLocation(3, 1))
-Enemy1.vx = 50
+pathenemies(Enemy1)
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
     for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
