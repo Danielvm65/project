@@ -42,8 +42,8 @@ controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
     }
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    info.player1.changeLifeBy(-1)
     sprites.destroy(p1)
-    info.player2.changeLifeBy(-1)
 })
 let jump_p2 = 0
 let jump1 = 0
