@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const finish = SpriteKind.create()
+}
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (jump1 < 1) {
         jump1 += 1
@@ -32,6 +35,14 @@ function pathenemies (mySprite: Sprite) {
         tiles.setTileAt(value, assets.tile`transparency16`)
     }
 }
+sprites.onOverlap(SpriteKind.finish, SpriteKind.Player, function (sprite, otherSprite) {
+    if (key21 == 3) {
+        mp.gameOverPlayerWin(mp.playerSelector(mp.PlayerNumber.One))
+        mp.gameOverPlayerWin(mp.playerSelector(mp.PlayerNumber.Two))
+    } else {
+        mySprite.sayText(":)")
+    }
+})
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (jump_p2 < 1) {
         jump_p2 += 1
@@ -47,9 +58,23 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSp
     } else {
         info.player2.changeLifeBy(-1)
     }
+    sprites.destroy(sprite)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
+    sprites.destroy(mySprite)
+    key21 += 1
+})
+info.player1.onLifeZero(function () {
+    sprites.destroy(p1)
+})
+info.player2.onLifeZero(function () {
+    sprites.destroy(p2)
 })
 let jump_p2 = 0
 let jump1 = 0
+let mySprite2: Sprite = null
+let mySprite: Sprite = null
+let key21 = 0
 let Enemy1: Sprite = null
 let p2: Sprite = null
 let p1: Sprite = null
@@ -240,6 +265,61 @@ scene.cameraFollowSprite(CAMERA)
 p1.ay = 300
 p2.ay = 300
 pathenemies(Enemy1)
+info.setLife(3)
+info.player2.setLife(3)
+key21 = 0
+for (let value of tiles.getTilesByType(assets.tile`myTile1`)) {
+    mySprite = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . 5 5 5 5 5 5 5 5 5 5 . . . 
+        . . . 5 5 5 5 5 5 5 5 5 5 . . . 
+        . . . . 5 5 . . . . . . . . . . 
+        . . . . 5 5 . . . . . . . . . . 
+        . . . . 5 5 . . . . . . . . . . 
+        . . . . 5 5 . . . . . . . . . . 
+        . . . . 5 5 . . . . . . . . . . 
+        . . . . 5 5 5 5 5 5 5 . . . . . 
+        . . . . 5 5 . . . . . . . . . . 
+        . . . . 5 5 5 5 . . . . . . . . 
+        . . . . 5 5 . . . . . . . . . . 
+        . . . . 5 5 5 5 5 5 5 5 . . . . 
+        . . . . 5 . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    tiles.placeOnTile(mySprite, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
+let text_list = [
+"keep trying!",
+"your not quite there!",
+"keep trying!",
+"your missing keys!",
+"not enough keys!",
+"you need 3 keys!"
+]
+for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
+    mySprite2 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e 5 5 5 5 5 5 5 5 5 5 e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e 5 e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e e e e e e e e e e e e . . . 
+        . e 5 5 5 5 5 5 5 5 5 5 e . . . 
+        . e e e e e e e e e e e e . . . 
+        `, SpriteKind.finish)
+    tiles.placeOnTile(mySprite2, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
     for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
