@@ -20,31 +20,6 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         jump1 = 0
     }
 })
-function pathenemies (mySprite: Sprite) {
-    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
-        Enemy1 = sprites.create(img`
-            . . . . . f f f f f . . . 
-            . . . f f f f f f f f f . 
-            . . f f f c f f f f f f . 
-            . . f f c f f f c f f f f 
-            f f c c f f f c c f f c f 
-            f f f f f 6 f f f f c c f 
-            . f f f 6 6 f f f f f f f 
-            . . f f 6 6 f b f 6 6 f f 
-            . . . f 7 7 f 1 6 7 6 f . 
-            . . . f 7 7 7 7 6 f f f . 
-            . . . f f 6 6 6 6 6 f . . 
-            . . . f a a a 6 7 7 6 . . 
-            . . . f a a a 6 7 7 6 . . 
-            . . . f 6 6 6 f 6 6 f . . 
-            . . . . f f f f f f . . . 
-            . . . . . . f f f . . . . 
-            `, SpriteKind.Enemy)
-        Enemy1.vx = 50
-        tiles.placeOnTile(Enemy1, value)
-        tiles.setTileAt(value, assets.tile`transparency16`)
-    }
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.item, function (sprite, otherSprite) {
     sprites.destroy(otherSprite)
     key21 += 1
@@ -74,11 +49,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let jump_p2 = 0
 let jump1 = 0
+let Enemy1: Sprite = null
 let mySprite2: Sprite = null
 let text_list: string[] = []
 let mySprite: Sprite = null
 let key21 = 0
-let Enemy1: Sprite = null
 let p2: Sprite = null
 let p1: Sprite = null
 scene.setBackgroundImage(img`
@@ -267,7 +242,6 @@ let CAMERA = sprites.create(img`
 scene.cameraFollowSprite(CAMERA)
 p1.ay = 300
 p2.ay = 300
-pathenemies(Enemy1)
 info.setLife(3)
 info.player2.setLife(3)
 key21 = 0
@@ -321,6 +295,29 @@ for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
         . e e e e e e e e e e e e . . . 
         `, SpriteKind.finish)
     tiles.placeOnTile(mySprite2, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+    Enemy1 = sprites.create(img`
+        . . . . . f f f f f . . . 
+        . . . f f f f f f f f f . 
+        . . f f f c f f f f f f . 
+        . . f f c f f f c f f f f 
+        f f c c f f f c c f f c f 
+        f f f f f 6 f f f f c c f 
+        . f f f 6 6 f f f f f f f 
+        . . f f 6 6 f b f 6 6 f f 
+        . . . f 7 7 f 1 6 7 6 f . 
+        . . . f 7 7 7 7 6 f f f . 
+        . . . f f 6 6 6 6 6 f . . 
+        . . . f a a a 6 7 7 6 . . 
+        . . . f a a a 6 7 7 6 . . 
+        . . . f 6 6 6 f 6 6 f . . 
+        . . . . f f f f f f . . . 
+        . . . . . . f f f . . . . 
+        `, SpriteKind.Enemy)
+    Enemy1.vx = 50
+    tiles.placeOnTile(Enemy1, value)
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
 game.onUpdate(function () {
