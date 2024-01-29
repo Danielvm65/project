@@ -1,6 +1,16 @@
 namespace SpriteKind {
     export const finish = SpriteKind.create()
+    export const item = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.finish, function (sprite, otherSprite) {
+    if (key21 == 3) {
+        mp.gameOverPlayerWin(mp.playerSelector(mp.PlayerNumber.One))
+        mp.gameOverPlayerWin(mp.playerSelector(mp.PlayerNumber.Two))
+    } else {
+        mySprite2.sayText(text_list._pickRandom())
+        pause(2000)
+    }
+})
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (jump1 < 1) {
         jump1 += 1
@@ -35,13 +45,9 @@ function pathenemies (mySprite: Sprite) {
         tiles.setTileAt(value, assets.tile`transparency16`)
     }
 }
-sprites.onOverlap(SpriteKind.finish, SpriteKind.Player, function (sprite, otherSprite) {
-    if (key21 == 3) {
-        mp.gameOverPlayerWin(mp.playerSelector(mp.PlayerNumber.One))
-        mp.gameOverPlayerWin(mp.playerSelector(mp.PlayerNumber.Two))
-    } else {
-        mySprite.sayText(":)")
-    }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.item, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite)
+    key21 += 1
 })
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (jump_p2 < 1) {
@@ -52,27 +58,24 @@ controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         jump_p2 = 0
     }
 })
-sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
-    if (otherSprite == p1) {
-        info.player1.changeLifeBy(-1)
-    } else {
-        info.player2.changeLifeBy(-1)
-    }
-    sprites.destroy(sprite)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-    sprites.destroy(mySprite)
-    key21 += 1
-})
 info.player1.onLifeZero(function () {
     sprites.destroy(p1)
 })
 info.player2.onLifeZero(function () {
     sprites.destroy(p2)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    if (sprite == p1) {
+        info.player1.changeLifeBy(-1)
+    } else {
+        info.player2.changeLifeBy(-1)
+    }
+    sprites.destroy(otherSprite)
+})
 let jump_p2 = 0
 let jump1 = 0
 let mySprite2: Sprite = null
+let text_list: string[] = []
 let mySprite: Sprite = null
 let key21 = 0
 let Enemy1: Sprite = null
@@ -286,11 +289,11 @@ for (let value of tiles.getTilesByType(assets.tile`myTile1`)) {
         . 5 5 5 . 5 5 . . . . . . . . . 
         . . . . 5 5 . . . . . . . . . . 
         . . . . 5 . . . . . . . . . . . 
-        `, SpriteKind.Enemy)
+        `, SpriteKind.item)
     tiles.placeOnTile(mySprite, value)
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
-let text_list = [
+text_list = [
 "keep trying!",
 "your not quite there!",
 "keep trying!",
