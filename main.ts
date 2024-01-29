@@ -1,7 +1,12 @@
 namespace SpriteKind {
     export const finish = SpriteKind.create()
     export const item = SpriteKind.create()
+    export const LAVA = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    game.setGameOverMessage(false, "GAME OVER!")
+    game.gameOver(false)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.finish, function (sprite, otherSprite) {
     if (key21 == 3) {
         mp.gameOverPlayerWin(mp.playerSelector(mp.PlayerNumber.One))
