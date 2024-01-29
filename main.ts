@@ -35,9 +35,13 @@ controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
 })
 info.player1.onLifeZero(function () {
     sprites.destroy(p1)
+    game.setGameOverMessage(false, "GAME OVER!")
+    game.gameOver(false)
 })
 info.player2.onLifeZero(function () {
     sprites.destroy(p2)
+    game.setGameOverMessage(false, "GAME OVER!")
+    game.gameOver(false)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (sprite == p1) {
