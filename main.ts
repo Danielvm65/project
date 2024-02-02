@@ -67,6 +67,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     sprites.destroy(otherSprite)
     doSomething(sprite)
 })
+/**
+ * This code was made freely available by Ashburton Public Library
+ */
 let jump_p2 = 0
 let jump1 = 0
 let list_of_damage: string[] = []
@@ -342,6 +345,9 @@ for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
 list_of_damage = ["be cafeul dont take more damage", "Shoot these zombies hurt", "I need to be more caferul"]
+/**
+ * This code was provided as starter code by my teacher
+ */
 game.onUpdate(function () {
     CAMERA.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
     for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
